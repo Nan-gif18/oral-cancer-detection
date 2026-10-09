@@ -1,0 +1,245 @@
+{% load static %}
+{% include 'hospital_header.html' %}
+
+<style>
+    body {
+        background: radial-gradient(circle at top, #020617, #020617 40%, #000);
+        color: #e5e7eb;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+    }
+
+    .detect-wrapper {
+        margin-top: 120px;
+        margin-bottom: 200px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .detect-card {
+        background: rgba(17, 24, 39, 0.9);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(148, 163, 184, 0.15);
+        border-radius: 24px;
+        width: 1100px;
+        padding: 50px 60px;
+        box-shadow: 0 25px 70px rgba(0,0,0,0.75);
+    }
+
+    h2 {
+        text-align: center;
+        color: #22c55e;
+        margin-bottom: 30px;
+        font-size: 30px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 30px;
+    }
+
+    label {
+        font-weight: 600;
+        color: #93c5fd;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    input[type="file"], select {
+        width: 100%;
+        padding: 12px;
+        background: #020617;
+        border: 1px solid #1e293b;
+        color: #e5e7eb;
+        border-radius: 10px;
+        margin-bottom: 18px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(120deg, #22c55e, #16a34a);
+        border: none;
+        border-radius: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .preview-box, .result-box {
+        background: #020617;
+        border: 1px solid #1e293b;
+        border-radius: 18px;
+        padding: 18px;
+        text-align: center;
+    }
+
+    .preview-box img,
+    .result-box img {
+        max-width: 100%;
+        border-radius: 14px;
+        margin-top: 12px;
+    }
+
+    .result-box {
+        min-height: 260px;
+        text-align: left;
+    }
+
+    .result-title {
+        color: #22c55e;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #1e293b;
+        margin: 20px 0;
+    }
+
+    /* ===== LARGE DETECTED IMAGE SECTION ===== */
+    .detected-image-wrapper {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .detected-image-card {
+        background: rgba(2, 6, 23, 0.95);
+        border: 1px solid #1e293b;
+        border-radius: 26px;
+        padding: 35px;
+        width: 1100px;
+        box-shadow: 0 35px 90px rgba(0,0,0,0.85);
+    }
+
+    .detected-image-title {
+        text-align: center;
+        color: #22c55e;
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .detected-image-card img {
+        width: 100%;
+        max-height: 650px;
+        object-fit: contain;
+        border-radius: 22px;
+        display: block;
+        margin: auto;
+    }
+
+    @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+        .detect-card,
+        .detected-image-card {
+            width: 95%;
+        }
+    }
+</style>
+
+<!-- ================= MAIN FORM SECTION ================= -->
+<div class="detect-wrapper">
+    <div class="detect-card">
+        <h2>🧬 Oral Cancer Detection System</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="grid">
+
+                <!-- LEFT PANEL -->
+                <div>
+                    <label>Select Image</label>
+                    <input type="file" name="image" id="image" required>
+
+                    <div class="preview-box" id="previewBox" style="display:none;">
+                        <strong style="color:#93c5fd;">Uploaded Image Preview</strong>
+                        <img id="previewImage">
+                    </div>
+
+                    <label>Select Detection Mode</label>
+                    <select name="option" required>
+                        <option value="">-- Choose Option --</option>
+                        <option value="1">InceptionResNetV2</option>
+                        <option value="2">XceptionNet</option>
+                        <option value="3">EfficientNetB3</option>
+                        <option value="4">Inception + GradCAM</option>
+                        <option value="5">Inception + Occlusion</option>
+                        <option value="6">Xception + GradCAM</option>
+                        <option value="7">Xception + Occlusion</option>
+                        <option value="8">EfficientNet + GradCAM</option>
+                        <option value="9">EfficientNet + Occlusion</option>
+
+                            <option value="10">Ensemble (Inception + Xception + EfficientNet)</option>
+{#    <option value="11">Ensemble + GradCAM (All Models)</option>#}
+{#    <option value="12">Ensemble + Occlusion (All Models)</option>#}
+                    </select>
+
+                    <button type="submit">🔍 Run Detection</button>
+                </div>
+
+                <!-- RIGHT PANEL -->
+                <div class="result-box">
+                    <div class="result-title">Detection Result</div>
+
+                    {% if result %}
+                        <p>
+                            <strong>Prediction:</strong>
+                            <span style="color:{% if result.prediction == 'Normal' %}#22c55e{% else %}#f87171{% endif %};">
+                                {{ result.prediction }}
+                            </span>
+                        </p>
+
+                        <p>
+                            <strong>Confidence:</strong> {{ result.confidence }}
+                        </p>
+
+                        {% if image_url %}
+                            <hr>
+                            <strong>Input Image</strong>
+                            <img src="{{ image_url }}">
+                        {% endif %}
+                    {% else %}
+                        <p>Awaiting input...</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ================= DETECTED IMAGE LARGE VIEW ================= -->
+{% if result_image_url %}
+<div class="detected-image-wrapper">
+    <div class="detected-image-card">
+        <div class="detected-image-title">
+            🧬 Detected Result Image
+        </div>
+        <img src="{{ result_image_url }}">
+    </div>
+</div>
+{% endif %}
+
+<script>
+    document.getElementById('image').addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('previewImage').src = e.target.result;
+                document.getElementById('previewBox').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+{% include 'publicfooter.html' %}
+
+
+
+

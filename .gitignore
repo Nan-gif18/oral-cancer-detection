@@ -1,0 +1,37 @@
+# Python
+
+**pycache**/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# IDE
+
+.idea/
+
+# Secrets and local configuration
+
+.env
+.env.*
+!.env.example
+
+# Local databases
+
+*.sqlite3
+
+# Generated results and user uploads
+
+detection_results/
+output/
+uploads/
+media/
+
+# Dataset folder - keep local, do not publish
+
+Second Set/
+
+# macOS metadata
+
+.DS_Store
+._*

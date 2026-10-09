@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment Requests</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0f172a, #020617);
+            color: #e5e7eb;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-content {
+            flex: 1;
+            padding-top: 140px;
+            padding-bottom: 60px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #22c55e;
+            font-size: 26px;
+        }
+
+        .table-wrapper {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #020617;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.75);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        th {
+            background: #020617;
+            color: #93c5fd;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: #020617;
+        }
+
+        /* Status styles */
+        .pending {
+            color: #facc15;
+            font-weight: 600;
+        }
+
+        .accepted {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .rejected {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .accept {
+            background: linear-gradient(120deg, #22c55e, #16a34a);
+            color: #020617;
+        }
+
+        .reject {
+            background: linear-gradient(120deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .chat {
+            background: linear-gradient(120deg, #6366f1, #22c55e);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        .msg {
+            text-align: center;
+            margin-top: 60px;
+            color: #9ca3af;
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            th, td {
+                font-size: 13px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+{% include 'hospital_header.html' %}
+
+<div class="page-content">
+
+<h2>📨 Appointment Requests</h2>
+
+{% if a %}
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>User Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Specialization</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Chat</th>
+        </tr>
+
+        {% for i in a %}
+        <tr>
+            <td>{{ i.USER_PROFILE.first_name }} {{ i.USER_PROFILE.last_name }}</td>
+            <td>{{ i.date }}</td>
+            <td>{{ i.time }}</td>
+            <td>{{ i.APPOINTMENT.specialization }}</td>
+
+            <td class="{{ i.status }}">
+                {{ i.status|title }}
+            </td>
+
+            <td>
+                {% if i.status == 'pending' %}
+                    <a href="{% url 'hospital_accept_appointment' i.id %}" class="btn accept">
+                        Accept
+                    </a>
+                    <a href="{% url 'hospital_reject_appointment' i.id %}" class="btn reject">
+                        Reject
+                    </a>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+
+            <td>
+                {% if i.status == 'accepted' %}
+                    <a href="{% url 'hospital_chat_with_user' i.USER_PROFILE.USER.id %}"
+                       class="btn chat">
+                        Chat
+                    </a>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% else %}
+<p class="msg">No appointment requests found</p>
+{% endif %}
+
+</div>
+
+{% include 'publicfooter.html' %}
+
+</body>
+</html>

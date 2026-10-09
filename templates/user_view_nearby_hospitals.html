@@ -1,0 +1,122 @@
+
+
+{% include 'user_header.html' %}
+
+<style>
+    body {
+        background: linear-gradient(180deg, #0f172a, #020617);
+        color: #e5e7eb;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+    }
+
+    h2 {
+        text-align: center;
+        margin: 120px 0 40px;
+        color: #22c55e;
+        font-size: 28px;
+    }
+
+    .cards-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 20px 80px;
+    }
+
+    .hospital-card {
+        background: #111827;
+        border: 1px solid #1e293b;
+        border-radius: 16px;
+        width: 260px;
+        padding: 20px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-align: center;
+    }
+
+    .hospital-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 60px rgba(34,197,94,0.4);
+    }
+
+    .hospital-card h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: #93c5fd;
+    }
+
+    .hospital-card p {
+        margin: 4px 0;
+        font-size: 14px;
+        color: #e5e7eb;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 8px 16px;
+        background: linear-gradient(120deg, #22c55e, #16a34a);
+        color: #020617;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(34,197,94,0.35);
+    }
+
+    .msg {
+        text-align: center;
+        margin-top: 60px;
+        font-size: 16px;
+        color: #9ca3af;
+    }
+
+    @media (max-width: 768px) {
+        .hospital-card {
+            width: 90%;
+        }
+    }
+</style>
+
+<h2>🏥 Hospital</h2>
+
+{% if data %}
+<div class="cards-wrapper">
+{#    {% for item in data %}#}
+{#    <div class="hospital-card">#}
+{#        <h3>{{ item.hospital.name }}</h3>#}
+{#        <p><b>Place:</b> {{ item.hospital.place }}</p>#}
+{#        <p><b>Phone:</b> {{ item.hospital.phone }}</p>#}
+{#        <a href="{% url 'user_view_hospital_appointments' item.hospital.id %}" class="btn">#}
+{#            View Appointments#}
+{#        </a>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{% for hospital in data %}
+<div class="hospital-card">
+    <h3>{{ hospital.name }}</h3>
+    <p><b>Place:</b> {{ hospital.place }}</p>
+    <p><b>Phone:</b> {{ hospital.phone }}</p>
+    <a href="{% url 'user_view_hospital_appointments' hospital.id %}" class="btn">
+        View Appointments
+    </a>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<p class="msg">No hospitals found</p>
+{% endif %}
+
+
+
+<br><br><br><br><br><br><br>
+{% include 'publicfooter.html' %}
+
+

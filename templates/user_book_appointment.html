@@ -1,0 +1,130 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0f172a, #020617);
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 140px;
+            padding-bottom: 60px;
+        }
+
+        .box {
+            width: 420px;
+            padding: 35px 30px;
+            background: #020617;
+            border-radius: 18px;
+            border: 1px solid #1e293b;
+            box-shadow: 0 20px 55px rgba(0,0,0,0.85);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #22c55e;
+            font-size: 24px;
+        }
+
+        .info {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .info p {
+            margin: 8px 0;
+            color: #cbd5f5;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #cbd5f5;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #22c55e;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px;
+            background: linear-gradient(120deg, #22c55e, #16a34a);
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #020617;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34,197,94,0.35);
+        }
+    </style>
+</head>
+
+<body>
+
+{% include 'user_header.html' %}
+
+<div class="page-content">
+    <div class="box">
+        <h2>📌 Book Appointment</h2>
+
+        <div class="info">
+            <p><b>Hospital:</b> {{ appointment.HOSPITAL.name }}</p>
+            <p><b>Available Time:</b> {{ appointment.start_time }} – {{ appointment.end_time }}</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Select Preferred Time</label>
+            <input type="time" name="time" required>
+
+            <button type="submit">Confirm Booking</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% include 'publicfooter.html' %}
+
+</body>
+</html>

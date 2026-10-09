@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Oral Cancer Awareness</title>
+    <style>
+        /* Base */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background: #121212;
+            color: #e0e0e0;
+        }
+
+        /* Header with button */
+        header {
+            background: #1f1f1f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #ffc107;
+        }
+
+        .camp-btn-header {
+            background: #ffc107;
+            color: #121212;
+            padding: 10px 22px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .camp-btn-header:hover {
+            background: #ffc107;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        /* Educational material cards */
+        .material-card {
+            background: #1e1e1e;
+            border-left: 6px solid #ffc107;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .material-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+
+        .material-card h3 {
+            margin-top: 0;
+            color: #ffc107;
+        }
+
+        .material-card p {
+            margin: 12px 0;
+            color: #d1d5db;
+        }
+
+        .type {
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+            .back-btn {
+        background: transparent;
+        color: #ffc107;
+        border: 2px solid #ffc107;
+        padding: 8px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-right: 20px;
+    }
+
+    .back-btn:hover {
+        background: #ffc107;
+        color: #121212;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+        .page-heading {
+        text-align: center;
+        font-size: 32px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        color: #ffc107;
+        letter-spacing: 0.5px;
+    }
+
+    .page-subheading {
+        text-align: center;
+        font-size: 15px;
+        color: #94a3b8;
+        margin-bottom: 50px;
+    }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="{% url 'login' %}" class="back-btn">← Back</a>
+        <h1>🦷 Oral Cancer Awareness</h1>
+    </div>
+
+    <a href="{% url 'public_view_screening_camps' %}" class="camp-btn-header">
+        Screening Camps
+    </a>
+</header>
+
+<h2 class="page-heading">
+    Educational Materials
+</h2>
+
+<div class="container">
+    {% for m in materials %}
+    <div class="material-card">
+        <h3>{{ m.title }}</h3>
+        <p>{{ m.content }}</p>
+        <div class="type">Type: {{ m.type }}</div>
+    </div>
+    {% empty %}
+    <p style="text-align:center; color:#94a3b8;">No educational materials available.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>

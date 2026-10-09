@@ -1,0 +1,132 @@
+{% include 'adminheader.html' %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Hospital | Admin</title>
+
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f4f7fb;
+        color: #111827;
+        margin: 0;
+        padding-top: 80px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #512da8;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+    .form-wrapper {
+        width: 90%;
+        max-width: 600px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        padding: 30px 25px;
+    }
+
+    label {
+        display: block;
+        font-weight: 600;
+        margin-top: 15px;
+        margin-bottom: 6px;
+        color: #512da8;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #c4c4c4;
+        font-size: 14px;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #512da8;
+        box-shadow: 0 0 5px rgba(81,45,168,0.4);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 25px;
+        background-color: #512da8;
+        color: #ffffff;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        font-size: 15px;
+    }
+
+    button:hover {
+        background-color: #3e1e91;
+    }
+
+    @media (max-width: 600px) {
+        .form-wrapper {
+            padding: 20px 15px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<h2>Edit Hospital Details</h2>
+
+<div class="form-wrapper">
+    <form method="post">
+        {% csrf_token %}
+
+```
+    <label>Hospital Name</label>
+    <input type="text" name="name" value="{{ hospital.name }}" required>
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ hospital.email }}" required>
+
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ hospital.phone }}" required>
+
+    <label>Place</label>
+    <input type="text" name="place" value="{{ hospital.place }}" required>
+
+    <label>Post</label>
+    <input type="text" name="post" value="{{ hospital.post }}" required>
+
+    <label>PIN</label>
+    <input type="text" name="pin" value="{{ hospital.pin }}" required>
+
+    <label>District</label>
+    <input type="text" name="district" value="{{ hospital.district }}" required>
+
+    <label>State</label>
+    <input type="text" name="state" value="{{ hospital.state }}" required>
+
+    <label>Latitude</label>
+    <input type="text" name="latitude" value="{{ hospital.latitude }}" required>
+
+    <label>Longitude</label>
+    <input type="text" name="longitude" value="{{ hospital.longitude }}" required>
+
+    <button type="submit">Update Hospital</button>
+</form>
+
+
+</div>
+
+</body>
+</html>

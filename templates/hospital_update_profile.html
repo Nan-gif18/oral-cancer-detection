@@ -1,0 +1,140 @@
+
+{% include 'hospital_header.html' %}
+
+<style>
+    body {
+        background: linear-gradient(180deg, #0f172a, #020617);
+        color: #e5e7eb;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+    }
+
+    .edit-wrapper {
+        margin-top: 120px;
+        margin-bottom: 200px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .edit-card {
+        background: #111827;
+        border: 1px solid #1e293b;
+        border-radius: 18px;
+        width: 480px;
+        padding: 28px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.75);
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #22c55e;
+        font-size: 26px;
+    }
+
+    .msg {
+        text-align: center;
+        color: #22c55e;
+        font-size: 14px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+
+    td:first-child {
+        color: #93c5fd;
+        font-weight: 600;
+        width: 40%;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        width: 100%;
+        padding: 9px 12px;
+        background: #020617;
+        border: 1px solid #1e293b;
+        border-radius: 8px;
+        color: #e5e7eb;
+        font-size: 14px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #22c55e;
+    }
+
+    .btn-row {
+        text-align: center;
+        padding-top: 18px;
+    }
+
+    input[type="submit"] {
+        padding: 10px 26px;
+        background: linear-gradient(120deg, #22c55e, #16a34a);
+        border: none;
+        border-radius: 10px;
+        color: #020617;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(34,197,94,0.35);
+    }
+
+    @media (max-width: 520px) {
+        .edit-card {
+            width: 90%;
+        }
+    }
+</style>
+
+<div class="edit-wrapper">
+
+    <div class="edit-card">
+        <h3>✏️ Edit Hospital Profile</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="msg">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <tr><td>Name</td><td><input type="text" name="name" value="{{ a.name }}"></td></tr>
+                <tr><td>Email</td><td><input type="email" name="email" value="{{ a.email }}"></td></tr>
+                <tr><td>Phone</td><td><input type="text" name="phone" value="{{ a.phone }}"></td></tr>
+                <tr><td>Place</td><td><input type="text" name="place" value="{{ a.place }}"></td></tr>
+                <tr><td>Post</td><td><input type="text" name="post" value="{{ a.post }}"></td></tr>
+                <tr><td>Pin</td><td><input type="text" name="pin" value="{{ a.pin }}"></td></tr>
+                <tr><td>District</td><td><input type="text" name="district" value="{{ a.district }}"></td></tr>
+                <tr><td>State</td><td><input type="text" name="state" value="{{ a.state }}"></td></tr>
+                <tr><td>Latitude</td><td><input type="text" name="latitude" value="{{ a.latitude }}"></td></tr>
+                <tr><td>Longitude</td><td><input type="text" name="longitude" value="{{ a.longitude }}"></td></tr>
+
+                <tr>
+                    <td colspan="2" class="btn-row">
+                        <input type="submit" value="Update">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+
+{% include 'publicfooter.html' %}

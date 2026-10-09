@@ -1,0 +1,174 @@
+
+
+{% include 'user_header.html' %}
+
+<style>
+    body {
+        background: linear-gradient(180deg, #0f172a, #020617);
+        color: #e5e7eb;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .complaint-wrapper {
+        max-width: 900px;
+        margin: 140px auto 120px;
+        padding: 20px;
+    }
+
+    h3, h4 {
+        text-align: center;
+        color: #22c55e;
+        margin-bottom: 20px;
+    }
+
+    /* Message styling */
+    .msg {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+    /* Complaint form card */
+    .form-card {
+        background: #020617;
+        border: 1px solid #1e293b;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        margin-bottom: 40px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 120px;
+        background: #020617;
+        color: #e5e7eb;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 14px;
+        resize: none;
+    }
+
+    textarea:focus {
+        outline: none;
+        border-color: #22c55e;
+    }
+
+    .submit-btn {
+        padding: 10px 24px;
+        background: linear-gradient(120deg, #22c55e, #16a34a);
+        color: #020617;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(34,197,94,0.4);
+    }
+
+    /* Previous complaints table */
+    .table-wrapper {
+        background: #020617;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid #1e293b;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background: #020617;
+        color: #93c5fd;
+        padding: 14px;
+        font-size: 14px;
+        border-bottom: 1px solid #334155;
+    }
+
+    td {
+        padding: 14px;
+        font-size: 14px;
+        border-bottom: 1px solid #1e293b;
+        text-align: center;
+    }
+
+    tr:hover {
+        background: #020617;
+    }
+
+    @media (max-width: 768px) {
+        textarea {
+            height: 100px;
+        }
+
+        th, td {
+            font-size: 13px;
+            padding: 10px;
+        }
+    }
+</style>
+
+<div class="complaint-wrapper">
+
+    <h3>📝 Send Complaint</h3>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="msg" style="color: {% if message.tags == 'error' %}#ef4444{% else %}#22c55e{% endif %};">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="form-card">
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td style="width: 30%; font-weight:600; color:#93c5fd;">Complaint</td>
+                    <td>
+                        <textarea name="complaint" required placeholder="Write your complaint here..."></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Send Complaint" class="submit-btn">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <h4>📂 Previous Complaints</h4>
+
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>Sl.No</th>
+                <th>Complaint</th>
+                <th>Date</th>
+                <th>Reply</th>
+            </tr>
+
+            {% for i in a %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.complaint }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.reply|default:"Pending" }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+{% include 'publicfooter.html' %}

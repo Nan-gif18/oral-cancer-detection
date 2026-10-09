@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screening Camps</title>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #121212;
+            color: #e0e0e0;
+            margin: 0;
+        }
+
+        header {
+            background: #1f1f1f;
+            padding: 15px 40px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            color: #ffc107;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .camp-card {
+            background: #1e1e1e;
+            border-left: 6px solid #ffc107;
+            padding: 22px;
+            margin-bottom: 25px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .camp-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .camp-card h3 {
+            margin-top: 0;
+            color: #ffc107;
+        }
+
+        .camp-card p {
+            margin: 8px 0;
+            color: #d1d5db;
+        }
+
+        .small {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header style="display:flex; align-items:center; justify-content:space-between;">
+
+    <a href="{% url 'public_home' %}"
+       style="
+            background:#ffc107;
+            color:#121212;
+            padding:8px 18px;
+            border-radius:8px;
+            font-weight:600;
+            text-decoration:none;
+            box-shadow:0 4px 15px rgba(0,0,0,0.4);
+            transition:0.3s;">
+        ⬅ Back
+    </a>
+
+    <h1 style="margin:0;">🦷 Screening Camps</h1>
+
+    <!-- Empty div keeps heading perfectly centered -->
+    <div style="width:90px;"></div>
+
+</header>
+
+
+<div class="container">
+
+    {% for c in camps %}
+    <div class="camp-card">
+        <h3>{{ c.camp_name }}</h3>
+
+        <p>{{ c.description }}</p>
+
+        <p class="small">
+    🏥 Hospital:
+    <strong>{{ c.HOSPITAL.name }}</strong>
+</p>
+
+<p class="small">
+    📍 Location:
+    {{ c.HOSPITAL.place }}, {{ c.HOSPITAL.district }}
+</p>
+
+
+        <p class="small">
+            🗓 Date:
+            {{ c.start_date }} to {{ c.end_date }}
+        </p>
+
+        <p class="small">
+            ⏰ Time:
+            {{ c.start_time }} - {{ c.end_time }}
+        </p>
+    </div>
+    {% empty %}
+    <p style="text-align:center; color:#94a3b8;">
+        No screening camps available at the moment.
+    </p>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

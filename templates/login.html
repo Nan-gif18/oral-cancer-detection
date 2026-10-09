@@ -1,0 +1,179 @@
+
+
+
+{% include 'publicheader.html' %}
+
+<br><br><br><br>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | Oral Cancer Detection</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #020617);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            color: #e5e7eb;
+        }
+
+        /* Center container */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            background: #020617;
+            padding: 40px 45px;
+            width: 380px;
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid #1e293b;
+            animation: fadeUp 0.6s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #facc15;
+            font-size: 26px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #cbd5f5;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #facc15;
+            box-shadow: 0 0 0 2px rgba(250,204,21,0.25);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #facc15;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #020617;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(250,204,21,0.35);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(250,204,21,0.55);
+        }
+
+        .messages {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .messages p {
+            color: #f87171;
+            font-size: 14px;
+        }
+
+        /* Footer alignment fix */
+        footer {
+            margin-top: auto;
+        }
+        .forgot-link {
+    text-align: right;
+    margin-top: 6px;
+}
+
+.forgot-link a {
+    color: #93c5fd;
+    font-size: 13px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.forgot-link a:hover {
+    color: #facc15;
+    text-decoration: underline;
+}
+    </style>
+</head>
+
+<body>
+
+<div class="login-wrapper">
+    <div class="login-card">
+
+        <h2>🔐 Login</h2>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter your username" required>
+
+            <br>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+
+
+            <div class="forgot-link">
+    <a href="/forgot_password/">Forgot Password?</a>
+</div>
+
+
+        </form>
+
+    </div>
+</div>
+
+{% include 'publicfooter.html' %}
+
+</body>
+</html>

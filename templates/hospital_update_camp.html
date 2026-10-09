@@ -1,0 +1,181 @@
+
+{% include 'hospital_header.html' %}
+
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        background: radial-gradient(circle at top, #111827 0%, #020617 45%, #000 100%);
+        color: #e5e7eb;
+    }
+
+    .page-wrapper {
+        margin-top: 120px;
+        margin-bottom: 200px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .content-box {
+        width: 95%;
+        max-width: 800px;
+        background: #020617;
+        padding: 30px;
+        border-radius: 18px;
+        border: 1px solid #1e293b;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 600;
+        background: linear-gradient(120deg, #6366f1, #22c55e);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 10px;
+        border: 1px solid #1e293b;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    td:first-child {
+        width: 35%;
+        font-weight: 500;
+        color: #93c5fd;
+        background: #020617;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    textarea {
+        width: 100%;
+        padding: 8px 10px;
+        background: #020617;
+        border: 1px solid #1e293b;
+        color: #e5e7eb;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #22c55e;
+    }
+
+    input[type="submit"] {
+        padding: 10px 32px;
+        background: linear-gradient(120deg, #22c55e, #16a34a);
+        border: none;
+        color: #020617;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="submit"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(34,197,94,0.45);
+    }
+
+    .message-success {
+        color: #22c55e;
+        margin-bottom: 15px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .message-error {
+        color: #ef4444;
+        margin-bottom: 15px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        td {
+            font-size: 13px;
+        }
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="content-box">
+
+        <h2>Update Screening Camp</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="{% if message.tags == 'error' %}message-error{% else %}message-success{% endif %}">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Camp Name</td>
+                    <td><input type="text" name="camp_name" value="{{ a.camp_name }}" required></td>
+                </tr>
+                <tr>
+                    <td>Place</td>
+                    <td><input type="text" name="place" value="{{ a.place }}" required></td>
+                </tr>
+                <tr>
+                    <td>Latitude</td>
+                    <td><input type="text" name="latitude" value="{{ a.latitude }}" required></td>
+                </tr>
+                <tr>
+                    <td>Longitude</td>
+                    <td><input type="text" name="longitude" value="{{ a.longitude }}" required></td>
+                </tr>
+                <tr>
+                    <td>Start Date</td>
+                    <td><input type="date" name="start_date" value="{{ a.start_date }}" required></td>
+                </tr>
+                <tr>
+                    <td>End Date</td>
+                    <td><input type="date" name="end_date" value="{{ a.end_date }}" required></td>
+                </tr>
+                <tr>
+                    <td>Start Time</td>
+                    <td><input type="time" name="start_time" value="{{ a.start_time }}" required></td>
+                </tr>
+                <tr>
+                    <td>End Time</td>
+                    <td><input type="time" name="end_time" value="{{ a.end_time }}" required></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>
+                        <textarea name="description" rows="3" required>{{ a.description }}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Update Camp">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</div>
+
+{% include 'publicfooter.html' %}

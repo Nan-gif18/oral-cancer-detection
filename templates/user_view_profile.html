@@ -1,0 +1,134 @@
+
+
+{% include 'user_header.html' %}
+
+<br><br><br><br><br><br><br><br>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+
+    <style>
+        body {
+    background: linear-gradient(
+      180deg,
+      #0f172a 0%,     /* matches header dark navy */
+      #111827 40%,
+      #1f2933 100%   /* slightly lighter for content */
+    );
+    color: #e5e7eb; /* soft white text */
+  }
+        .card, .profile-card, .form-box {
+  background: #ffffff;
+  color: #1f2933;
+  border-radius: 15px;
+}
+
+        .profile-card {
+            width: 420px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #2c3e50;
+            letter-spacing: 1px;
+        }
+
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+            font-size: 15px;
+        }
+
+        .profile-row b {
+            color: #34495e;
+        }
+
+        .profile-row span {
+            color: #555;
+        }
+
+        .edit-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .edit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<center>
+    <div class="profile-card">
+        <h2>👤 My Profile</h2>
+
+        <div class="profile-row">
+            <b>First Name</b> <span>{{ a.first_name }}</span>
+        </div>
+
+        <div class="profile-row">
+            <b>Last Name</b> <span>{{ a.last_name }}</span>
+        </div>
+
+        <div class="profile-row">
+            <b>Email</b> <span>{{ a.email }}</span>
+        </div>
+
+        <div class="profile-row">
+            <b>Phone</b> <span>{{ a.phone }}</span>
+        </div>
+
+        <div class="profile-row">
+            <b>Gender</b> <span>{{ a.gender }}</span>
+        </div>
+
+        <div class="profile-row">
+            <b>Place</b> <span>{{ a.place }}</span>
+        </div>
+
+        <div class="profile-row">
+            <b>Address</b> <span>{{ a.address }}</span>
+        </div>
+
+        <a class="edit-btn" href="{% url 'user_update_profile' a.id %}">
+            ✏️ Edit Profile
+        </a>
+    </div>
+</center>
+
+</body>
+</html>
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+{% include 'publicfooter.html' %}

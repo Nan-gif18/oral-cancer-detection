@@ -1,0 +1,93 @@
+{% include 'adminheader.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screening Camps | Admin</title>
+
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7fb;
+            color: #111827;
+            margin: 0;
+            padding-top: 80px; /* space for fixed header */
+        }
+
+        h2 {
+            text-align: center;
+            color: #512da8;
+            margin-bottom: 30px;
+        }
+
+        .cards-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 50px auto 100px;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .camp-card {
+            background: #ffffff;
+            border-radius: 12px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .camp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(81,45,168,0.3);
+        }
+
+        .camp-card h3 {
+            color: #512da8;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .camp-card p {
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .camp-card i {
+            margin-right: 6px;
+            color: #512da8;
+        }
+
+        .no-data {
+            text-align: center;
+            font-weight: 500;
+            color: #dc2626;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cards-wrapper">
+
+    {% for i in a %}
+    <div class="camp-card">
+        <h3><i class="fa-solid fa-hospital"></i> {{ i.HOSPITAL.name }}</h3>
+        <p><i class="fa-solid fa-calendar-days"></i> <b>Camp:</b> {{ i.camp_name }}</p>
+        <p><i class="fa-solid fa-clock"></i> <b>Start:</b> {{ i.start_date }} {{ i.start_time }}</p>
+        <p><i class="fa-solid fa-clock"></i> <b>End:</b> {{ i.end_date }} {{ i.end_time }}</p>
+        <p><i class="fa-solid fa-info-circle"></i> <b>Description:</b> {{ i.description }}</p>
+    </div>
+    {% empty %}
+    <p class="no-data">No Screening Camps Found</p>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

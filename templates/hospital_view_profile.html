@@ -1,0 +1,113 @@
+
+
+{% include 'hospital_header.html' %}
+
+<style>
+    body {
+        background: linear-gradient(180deg, #0f172a, #020617);
+        color: #e5e7eb;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #22c55e;
+        font-size: 26px;
+    }
+
+    .profile-wrapper {
+        margin-top: 120px;
+        margin-bottom: 200px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .profile-card {
+        background: #111827;
+        border: 1px solid #1e293b;
+        border-radius: 18px;
+        width: 420px;
+        padding: 25px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    }
+
+    .profile-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .profile-table td {
+        padding: 12px 10px;
+        border-bottom: 1px solid #1e293b;
+        font-size: 14px;
+    }
+
+    .profile-table td:first-child {
+        color: #93c5fd;
+        font-weight: 600;
+        width: 40%;
+    }
+
+    .profile-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .edit-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: linear-gradient(120deg, #22c55e, #16a34a);
+        color: #020617;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .edit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(34,197,94,0.35);
+    }
+
+    .edit-row {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    @media (max-width: 500px) {
+        .profile-card {
+            width: 90%;
+        }
+    }
+</style>
+
+<div class="profile-wrapper">
+
+    <div class="profile-card">
+        <h3>🏥 Hospital Profile</h3>
+
+        <table class="profile-table">
+            <tr><td>Name</td><td>{{ a.name }}</td></tr>
+            <tr><td>Email</td><td>{{ a.email }}</td></tr>
+            <tr><td>Phone</td><td>{{ a.phone }}</td></tr>
+            <tr><td>Place</td><td>{{ a.place }}</td></tr>
+            <tr><td>Post</td><td>{{ a.post }}</td></tr>
+            <tr><td>Pin</td><td>{{ a.pin }}</td></tr>
+            <tr><td>District</td><td>{{ a.district }}</td></tr>
+            <tr><td>State</td><td>{{ a.state }}</td></tr>
+            <tr><td>Latitude</td><td>{{ a.latitude }}</td></tr>
+            <tr><td>Longitude</td><td>{{ a.longitude }}</td></tr>
+        </table>
+
+        <div class="edit-row">
+            <a href="/hospital_update_profile/{{ a.id }}" class="edit-btn">
+                ✏️ Edit Profile
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% include 'publicfooter.html' %}

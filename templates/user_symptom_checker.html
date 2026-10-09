@@ -1,0 +1,198 @@
+{% include 'user_header.html' %}
+
+<br><br><br>
+
+<center>
+
+<div class="symptom-card">
+
+    <h2 class="title">🩺 Oral Cancer Symptom Checker</h2>
+    <p class="subtitle">
+        Answer the following questions honestly to assess potential oral cancer risk.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <table class="symptom-table">
+            <tr><td>Mouth ulcer not healing</td><td>
+                <select name="mouth_ulcer_not_healing" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Red or white patches</td><td>
+                <select name="red_or_white_patches" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Mouth pain</td><td>
+                <select name="mouth_pain" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Tongue pain</td><td>
+                <select name="tongue_pain" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Difficulty swallowing</td><td>
+                <select name="difficulty_swallowing" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Jaw stiffness</td><td>
+                <select name="jaw_stiffness" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Loose teeth</td><td>
+                <select name="loose_teeth" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Bleeding in mouth</td><td>
+                <select name="bleeding_in_mouth" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Neck lump</td><td>
+                <select name="neck_lump" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Ear pain</td><td>
+                <select name="ear_pain" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Bad breath</td><td>
+                <select name="bad_breath" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Sore throat</td><td>
+                <select name="sore_throat" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Toothache</td><td>
+                <select name="toothache" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Gum swelling</td><td>
+                <select name="gum_swelling" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Fever</td><td>
+                <select name="fever" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+
+            <tr><td>Weight loss</td><td>
+                <select name="weight_loss" required>
+                    <option value="">Select</option><option value="yes">Yes</option><option value="no">No</option>
+                </select></td></tr>
+        </table>
+
+        <br>
+        <button class="check-btn">Check Symptoms</button>
+    </form>
+
+    {% if result %}
+    <div class="result-box">
+        <h3>Result</h3>
+        <p><strong>{{ result }}</strong></p>
+        <p class="confidence">Confidence: {{ probability }}%</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</center>
+
+<br><br><br>
+
+{% include 'publicfooter.html' %}
+
+<style>
+.symptom-card {
+    width: 75%;
+    background: #020617;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    color: #e5e7eb;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.title {
+    background: linear-gradient(120deg, #6366f1, #22d3ee);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 30px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+.symptom-table {
+    width: 100%;
+}
+
+.symptom-table td {
+    padding: 10px;
+    font-size: 15px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    background: #020617;
+    color: #e5e7eb;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #22d3ee;
+}
+
+.check-btn {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    color: white;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.check-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(34,211,238,0.6);
+}
+
+.result-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 12px;
+}
+
+.confidence {
+    color: #22d3ee;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>

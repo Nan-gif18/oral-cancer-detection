@@ -1,0 +1,135 @@
+
+
+{% include 'adminheader.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Educational Material | Admin</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7fb;
+            color: #111827;
+            margin: 0;
+            padding-top: 80px; /* to avoid overlap with fixed header */
+        }
+
+        .form-wrapper {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto 100px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px 25px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #512da8;
+            margin-bottom: 30px;
+        }
+
+        form table {
+            width: 100%;
+        }
+
+        form td {
+            padding: 10px;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            padding: 10px 18px;
+            background-color: #512da8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #7b1fa2;
+        }
+
+        .message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .message p {
+            font-weight: 500;
+        }
+
+        .message p.success {
+            color: green;
+        }
+
+        .message p.error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-wrapper">
+    <h2>Edit Educational Material</h2>
+
+    {% if messages %}
+    <div class="message">
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="title" value="{{ a.title }}" required></td>
+            </tr>
+
+            <tr>
+                <td>Content</td>
+                <td><textarea name="content" rows="4" required>{{ a.content }}</textarea></td>
+            </tr>
+
+            <tr>
+                <td>Type</td>
+                <td>
+                    <select name="type" required>
+                        <option value="">-- Select Type --</option>
+                        <option value="Article" {% if a.type == 'Article' %}selected{% endif %}>Article</option>
+                        <option value="News" {% if a.type == 'News' %}selected{% endif %}>News</option>
+                        <option value="Awareness" {% if a.type == 'Awareness' %}selected{% endif %}>Awareness</option>
+                        <option value="Prevention" {% if a.type == 'Prevention' %}selected{% endif %}>Prevention</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <input type="submit" value="Update Material">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>
